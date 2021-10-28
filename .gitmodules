@@ -1,0 +1,4 @@
+[submodule "BackendApplication"]
+	path = BackendApplication
+	url = https://github.com/WebServices-DotNet/BackendApplication.git
+	branch = main
