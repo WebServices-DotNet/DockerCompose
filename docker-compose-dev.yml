@@ -36,6 +36,8 @@ services:
     - ./mongodb/database:/data/db
     ports:
     - 27017:27017
+    networks:
+    - internal_network
     restart: unless-stopped
 
 networks:
