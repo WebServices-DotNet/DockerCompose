@@ -2,3 +2,7 @@
 	path = BackendApplication
 	url = https://github.com/WebServices-DotNet/BackendApplication.git
 	branch = main
+[submodule "Frontend"]
+	path = Frontend
+	url = https://github.com/WebServices-DotNet/Frontend.git
+	branch = main
