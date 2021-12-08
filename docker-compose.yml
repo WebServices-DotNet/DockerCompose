@@ -2,28 +2,36 @@ version: "3.7"
 services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
     ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - ./rabbitmq/data/:/var/lib/rabbitmq/
-      - ./rabbitmq/log/:/var/log/rabbitmq
+      - 17558:5672
+      - 17556:15672
     networks:
       - internal_network
-
+  
   backend:
-    container_name: 'backend'
+    image: 10.40.71.55:5000/si_175592_backend
     depends_on:
       - rabbitmq
-    build:
-      context: ./BackendApplication/
-      dockerfile: Dockerfile
     ports:
-      - 5000:80
+      - 17555:80
     networks:
       - internal_network
+    restart: always
+    
+  frontend:
+    image: 10.40.71.55:5000/si_175592_frontend
+    ports:
+      - 17559:8080
+    networks:
+      - internal_network
+    stdin_open: true
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - VUE_APP_SERVER_URL=http://localhost:17555/
+    working_dir: /app
 
 networks:
   internal_network:
-    driver: bridge
+    name: si_175592
+    driver: overlay
